@@ -32,7 +32,7 @@ class Pokemon {
         opponent.health -= pointOfDamage;
         console.log(
           chalk.whiteBright(
-            `\n💥 ${this.name} attacked ${opponent.name} with ${selectedAttack.attack} for ${pointOfDamage} damage.\n`
+            `\n${this.name} attacked ${opponent.name} with ${selectedAttack.attack} for ${pointOfDamage} damage💥\n`
           )
         );
       } else {
@@ -57,46 +57,60 @@ class Pokemon {
   }
 }
 
-// Character 1
+// Pokemon 1
 const pikachu = new Pokemon("Pikachu", 100, 80, [
   new AttackSkill("Thunderbolt", 40, 30),
   new AttackSkill("Quick Attack", 20, 10),
   new AttackSkill("Iron Tail", 30, 20),
 ]);
 
-// Character 2
+// Pokemon 2
 const mewtwo = new Pokemon("Mewtwo", 100, 75, [
   new AttackSkill("Psystrike", 50, 30),
   new AttackSkill("Shadow Ball", 40, 20),
   new AttackSkill("Aura Sphere", 20, 50),
 ]);
 
-// Character 3
+// Pokemon 3
 const charizard = new Pokemon("Charizard", 100, 60, [
   new AttackSkill("Fire Spin", 35, 25),
   new AttackSkill("Dragon Claw", 30, 15),
   new AttackSkill("Blast Burn", 25, 20),
 ]);
 
-// Character 4
+// Pokemon 4
 const dragonite = new Pokemon("Dragonite", 100, 70, [
   new AttackSkill("Dragon Tail", 40, 30),
   new AttackSkill("Steel Wing", 35, 25),
   new AttackSkill("Outrage", 30, 20),
 ]);
 
+// Pokemon 5
+const snorlax = new Pokemon("Snorlax", 100, 70, [
+  new AttackSkill("Hyper Beam", 25, 15),
+  new AttackSkill("Lick", 45, 30),
+  new AttackSkill("Zen Headbutt", 35, 10),
+]);
+
+// Pokemon 6
+const rayquaza = new Pokemon("Rayquaza", 100, 70, [
+  new AttackSkill("Dragon Tail", 25, 15),
+  new AttackSkill("Breaking Swipe", 45, 30),
+  new AttackSkill("Dragon Ascent", 35, 10),
+]);
+
 // Set available players
-const players = [mewtwo, charizard, dragonite];
+const players = [mewtwo, charizard, dragonite, snorlax, rayquaza];
 
 // select an attack
 const selectedAttackByPlayer = (player) => {
-  console.log(chalk.whiteBright(`\nChoose an attack for ${player.name}:`));
-
+  console.log(chalk.whiteBright(`\n🔥Choose an attack for ${player.name}:`));
+  
   const attackNames = player.attacks.map((attack) =>
-    chalk.cyan(
-      `${attack.attack} - ${attack.damage} damage / ${attack.magic} magic`
+  chalk.cyan(
+    `${attack.attack} - ${attack.damage} damage / ${attack.magic} magic`
     )
-  );
+    );
 
   const attackIndex = readline.keyInSelect(
     attackNames,
@@ -105,7 +119,7 @@ const selectedAttackByPlayer = (player) => {
     ),
     {cancel: false}
   );
-  console.clear();
+  // console.clear();
   return player.attacks[attackIndex];
 };
 
@@ -123,7 +137,7 @@ do {
   if (!playAgain) {
     console.log(chalk.whiteBright(`\n🔥Welcome to Pokémon Battle Arena🔥🔥`));
     console.log(
-      `🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻\n`
+      `🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻`
     );
     console.log(chalk.italic.redBright(` Rules:`));
     console.log(`
@@ -145,7 +159,7 @@ do {
 
 // Select a character
 const selectedCharacter = (players) => {
-  console.log(chalk.whiteBright(`\nChoose your character:`));
+  console.log(chalk.whiteBright(`\n🔥Choose your character:`));
   const playerIndex = readline.keyInSelect(
     players.map((player) => chalk.cyan(player.name)),
     chalk.bgWhiteBright.redBright.italic(
@@ -164,14 +178,16 @@ const opponent = pikachu;
 
 
   readline.question(
-    chalk.bgWhiteBright.redBright.italic("Press enter to start a battle!")
+    chalk.bgWhiteBright.redBright.italic("\nPress enter to start a battle💥💥💥")
   );
   
   while (player.isAlive() && opponent.isAlive()) {
+
     const playerAttack = selectedAttackByPlayer(player);
     const computerAttack = randomAttackByComputer(opponent);
 
     player.attack(opponent, playerAttack);
+
     if (!opponent.isAlive()) {
       console.log(chalk.bold.yellowBright(`You won!🔥🔥🔥`));
     }
@@ -186,14 +202,15 @@ const opponent = pikachu;
   }
 
   playAgain = readline.keyInYN(
-    chalk.redBright("Do you want to play again?")
+    chalk.redBright("\nDo you want to play again?")
   );
   if (playAgain) {
     // playerHealth = 100;
     // opponentHealth = 100;
 
     opponent.health = 100
-    console.log("Restoring you to 100 health💥");
+    console.log("Recharging you to 100 health💥");
+    console.clear();
   } else {
     console.log("\nIt was fun! See you next time👋\n");
   }
