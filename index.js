@@ -88,22 +88,6 @@ const dragonite = new Pokemon("Dragonite", 100, 70, [
 // Set available players
 const players = [mewtwo, charizard, dragonite];
 
-// Select a character
-const selectedCharacter = (players) => {
-console.log(chalk.whiteBright(`\nChoose your character:`));
-const playerIndex = readline.keyInSelect(
-  players.map((player) => chalk.cyan(player.name)),
-  chalk.bgWhiteBright.redBright.italic(
-    "Choose a character and enter the number: "
-  ),
-  {cancel: false}
-);
-return players[playerIndex];
-};
-
-const player = selectedCharacter(players)
-const opponent = pikachu;
-
 // select an attack
 const selectedAttackByPlayer = (player) => {
   console.log(chalk.whiteBright(`\nChoose an attack for ${player.name}:`));
@@ -132,8 +116,6 @@ const randomAttackByComputer = (opponent) => {
   
 
 // Main Game
-let playerHealth = 100;
-let opponentHealth = 100;
 let playAgain = false;
 
 console.clear();
@@ -161,10 +143,34 @@ do {
     );
   }
 
+// Select a character
+const selectedCharacter = (players) => {
+  console.log(chalk.whiteBright(`\nChoose your character:`));
+  const playerIndex = readline.keyInSelect(
+    players.map((player) => chalk.cyan(player.name)),
+    chalk.bgWhiteBright.redBright.italic(
+      "Choose a character and enter the number: "
+    ),
+    {cancel: false}
+  );
+  return players[playerIndex];
+  };
+
+
+const player = selectedCharacter(players)
+console.log("**** Character selected:", player.name)
+player.health = 100
+console.log("player.health:", player.health);
+
+const opponent = pikachu;
+console.log("opponent.health:", opponent.health);
+console.log("******")
+
+
   readline.question(
     chalk.bgWhiteBright.redBright.italic("Press enter to start a battle!")
   );
-
+  
   while (player.isAlive() && opponent.isAlive()) {
     const playerAttack = selectedAttackByPlayer(player);
     const computerAttack = randomAttackByComputer(opponent);
@@ -187,10 +193,12 @@ do {
     chalk.redBright("Do you want to play again?")
   );
   if (playAgain) {
-    playerHealth = 100;
-    opponentHealth = 100;
-    console.log("You have now again 100 health💥");
+    // playerHealth = 100;
+    // opponentHealth = 100;
+
+    opponent.health = 100
+    console.log("Restoring you to 100 health💥");
   } else {
-  console.log("\nIt was fun! See you next time👋\n");
+    console.log("\nIt was fun! See you next time👋\n");
   }
 } while (playAgain);
