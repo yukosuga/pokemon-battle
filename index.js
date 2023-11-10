@@ -1,7 +1,7 @@
 import readline from "readline-sync";
 import chalk from "chalk";
 
-// Class 1 for Attack Skill Information
+// Class 1 / Attack Skill Information
 class AttackSkill {
   constructor(attack, damage, magic) {
     this.attack = attack;
@@ -10,7 +10,7 @@ class AttackSkill {
   }
 }
 
-// Class 2 for Pokemon Details
+// Class 2 / Pokémon Details
 class Pokemon {
   constructor(name, health, magic, attacks) {
     this.name = name;
@@ -57,52 +57,52 @@ class Pokemon {
   }
 }
 
-// Pokemon 1
+// Character / Pokémon 1
 const pikachu = new Pokemon("Pikachu", 100, 80, [
   new AttackSkill("Thunderbolt", 40, 30),
   new AttackSkill("Quick Attack", 20, 10),
   new AttackSkill("Iron Tail", 30, 20),
 ]);
 
-// Pokemon 2
+// Character / Pokémon 2
 const mewtwo = new Pokemon("Mewtwo", 100, 75, [
   new AttackSkill("Psystrike", 50, 30),
   new AttackSkill("Shadow Ball", 40, 20),
   new AttackSkill("Aura Sphere", 20, 50),
 ]);
 
-// Pokemon 3
+// Character / Pokémon 3
 const charizard = new Pokemon("Charizard", 100, 60, [
   new AttackSkill("Fire Spin", 35, 25),
   new AttackSkill("Dragon Claw", 30, 15),
   new AttackSkill("Blast Burn", 25, 20),
 ]);
 
-// Pokemon 4
+// Character / Pokémon 4
 const dragonite = new Pokemon("Dragonite", 100, 70, [
   new AttackSkill("Dragon Tail", 40, 30),
   new AttackSkill("Steel Wing", 35, 25),
   new AttackSkill("Outrage", 30, 20),
 ]);
 
-// Pokemon 5
+// Character / Pokémon 5
 const snorlax = new Pokemon("Snorlax", 100, 70, [
   new AttackSkill("Hyper Beam", 25, 15),
   new AttackSkill("Lick", 45, 30),
   new AttackSkill("Zen Headbutt", 35, 10),
 ]);
 
-// Pokemon 6
+// Character / Pokémon 6
 const rayquaza = new Pokemon("Rayquaza", 100, 70, [
   new AttackSkill("Dragon Tail", 25, 15),
   new AttackSkill("Breaking Swipe", 45, 30),
   new AttackSkill("Dragon Ascent", 35, 10),
 ]);
 
-// Set available players
+// Available Pokémon Players
 const players = [mewtwo, charizard, dragonite, snorlax, rayquaza];
 
-// select an attack
+// Select an attack
 const selectedAttackByPlayer = (player) => {
   console.log(chalk.whiteBright(`\n🔥Choose an attack for ${player.name}:`));
   
@@ -119,7 +119,6 @@ const selectedAttackByPlayer = (player) => {
     ),
     {cancel: false}
   );
-  // console.clear();
   return player.attacks[attackIndex];
 };
 
@@ -157,7 +156,7 @@ do {
     );
   }
 
-// Select a character
+// Select Pokémon Character
 const selectedCharacter = (players) => {
   console.log(chalk.whiteBright(`\n🔥Choose your character:`));
   const playerIndex = readline.keyInSelect(
@@ -205,9 +204,6 @@ const opponent = pikachu;
     chalk.redBright("\nDo you want to play again?")
   );
   if (playAgain) {
-    // playerHealth = 100;
-    // opponentHealth = 100;
-
     opponent.health = 100
     console.log("Recharging you to 100 health💥");
     console.clear();
