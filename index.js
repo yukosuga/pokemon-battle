@@ -158,13 +158,9 @@ const selectedCharacter = (players) => {
 
 
 const player = selectedCharacter(players)
-console.log("**** Character selected:", player.name)
 player.health = 100
-console.log("player.health:", player.health);
 
 const opponent = pikachu;
-console.log("opponent.health:", opponent.health);
-console.log("******")
 
 
   readline.question(
