@@ -37,7 +37,9 @@ class Pokemon {
         );
       } else {
         console.log(
-          `\n${this.name} doesn't have enough magic to use ${selectedAttack.attack}.`
+          chalk.whiteBright(
+            `\n${this.name} doesn't have enough magic to use ${selectedAttack.attack}.`
+          )
         );
         const getMagic = () => {
           const magicByRandomNumber = Math.floor(Math.random() * 21);
@@ -46,14 +48,18 @@ class Pokemon {
         };
         const extraMagic = getMagic();
         console.log(
-          `Instead ${this.name} recharges ${extraMagic} points of magic🔥\n`
+          chalk.whiteBright(
+            `Instead ${this.name} recharges ${extraMagic} points of magic🔥\n`
+          )
         );
       }
     }
   }
 
   showStatus() {
-    return `🔹${this.name} - Health: ${this.health} / Magic: ${this.magic}`;
+    return chalk.magentaBright(
+      `🔹${this.name} - Health: ${this.health} / Magic: ${this.magic}`
+    );
   }
 }
 
@@ -105,12 +111,12 @@ const players = [mewtwo, charizard, dragonite, snorlax, rayquaza];
 // Select an attack
 const selectedAttackByPlayer = (player) => {
   console.log(chalk.whiteBright(`\n🔥Choose an attack for ${player.name}:`));
-  
+
   const attackNames = player.attacks.map((attack) =>
-  chalk.cyan(
-    `${attack.attack} - ${attack.damage} damage / ${attack.magic} magic`
+    chalk.cyan(
+      `${attack.attack} - ${attack.damage} damage / ${attack.magic} magic`
     )
-    );
+  );
 
   const attackIndex = readline.keyInSelect(
     attackNames,
@@ -123,10 +129,9 @@ const selectedAttackByPlayer = (player) => {
 };
 
 const randomAttackByComputer = (opponent) => {
-    const randomIndex = Math.floor(Math.random() * opponent.attacks.length);
-    return opponent.attacks[randomIndex];
-  };
-  
+  const randomIndex = Math.floor(Math.random() * opponent.attacks.length);
+  return opponent.attacks[randomIndex];
+};
 
 // Main Game
 let playAgain = false;
@@ -136,7 +141,7 @@ do {
   if (!playAgain) {
     console.log(chalk.whiteBright(`\n🔥Welcome to Pokémon Battle Arena🔥🔥`));
     console.log(
-      `🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻`
+      `🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻`
     );
     console.log(chalk.italic.redBright(` Rules:`));
     console.log(`
@@ -147,7 +152,7 @@ do {
  5️⃣  Keep an eye on your magic points, as some attacks require them.
  6️⃣  If your health points reach zero, you lose.
  7️⃣  You can play as many rounds as you want, and you'll start with 100 health in each new round.
- 🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺\n`);
+🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺\n`);
     console.log(
       chalk.whiteBright(
         `Get ready to choose your attacks and battle against ` +
@@ -156,32 +161,31 @@ do {
     );
   }
 
-// Select Pokémon Character
-const selectedCharacter = (players) => {
-  console.log(chalk.whiteBright(`\n🔥Choose your character:`));
-  const playerIndex = readline.keyInSelect(
-    players.map((player) => chalk.cyan(player.name)),
-    chalk.bgWhiteBright.redBright.italic(
-      "Choose a character and enter the number: "
-    ),
-    {cancel: false}
-  );
-  return players[playerIndex];
+  // Select Pokémon Character
+  const selectedCharacter = (players) => {
+    console.log(chalk.whiteBright(`\n🔥Choose your character:`));
+    const playerIndex = readline.keyInSelect(
+      players.map((player) => chalk.cyan(player.name)),
+      chalk.bgWhiteBright.redBright.italic(
+        "Choose a character and enter the number: "
+      ),
+      {cancel: false}
+    );
+    return players[playerIndex];
   };
 
+  const player = selectedCharacter(players);
+  player.health = 100;
 
-const player = selectedCharacter(players)
-player.health = 100
-
-const opponent = pikachu;
-
+  const opponent = pikachu;
 
   readline.question(
-    chalk.bgWhiteBright.redBright.italic("\nPress enter to start a battle💥💥💥")
+    chalk.bgWhiteBright.redBright.italic(
+      "\nPress enter to start a battle💥💥💥"
+    )
   );
-  
-  while (player.isAlive() && opponent.isAlive()) {
 
+  while (player.isAlive() && opponent.isAlive()) {
     const playerAttack = selectedAttackByPlayer(player);
     const computerAttack = randomAttackByComputer(opponent);
 
@@ -200,14 +204,12 @@ const opponent = pikachu;
     }
   }
 
-  playAgain = readline.keyInYN(
-    chalk.redBright("\nDo you want to play again?")
-  );
+  playAgain = readline.keyInYN(chalk.redBright("\nDo you want to play again?"));
   if (playAgain) {
-    opponent.health = 100
+    opponent.health = 100;
     console.log("Recharging you to 100 health💥");
     console.clear();
   } else {
-    console.log("\nIt was fun! See you next time👋\n");
+    console.log(chalk.whiteBright("\nIt was fun! See you next time👋\n"));
   }
 } while (playAgain);
