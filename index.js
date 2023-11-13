@@ -190,15 +190,15 @@ do {
     const computerAttack = randomAttackByComputer(opponent);
 
     player.attack(opponent, playerAttack);
+    opponent.attack(player, computerAttack);
+
+    console.log(player.showStatus());
+    console.log(opponent.showStatus());
 
     if (!opponent.isAlive()) {
       console.log(chalk.bold.yellowBright(`You won!🔥🔥🔥`));
     }
 
-    console.log(player.showStatus());
-    console.log(opponent.showStatus());
-
-    opponent.attack(player, computerAttack);
     if (!player.isAlive()) {
       console.log(chalk.blueBright(`You lost...😭😭😭`));
     }
