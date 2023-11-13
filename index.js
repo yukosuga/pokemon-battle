@@ -19,8 +19,9 @@ class Pokemon {
     this.attacks = attacks;
   }
 
+  // Function to check if the Pokémon is alive based on its health
   isAlive() {
-    return this.health > 0; // Check if the Pokémon is alive based on its health
+    return this.health > 0;
   }
 
   // Function for attack
