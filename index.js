@@ -20,32 +20,43 @@ class Pokemon {
   }
 
   isAlive() {
-    return this.health > 0;
+    return this.health > 0; // Check if the Pokémon is alive based on its health
   }
 
+  // Function for attack
   attack(opponent, selectedAttack) {
     if (this.isAlive() && opponent.isAlive()) {
+      // Check if both the entities are alive
       const pointOfDamage = selectedAttack.damage;
       const pointOfMagic = selectedAttack.magic;
+
+      // Check if the entity has enough magic points for the selected attack
       if (this.magic >= pointOfMagic) {
         this.magic -= pointOfMagic;
         opponent.health -= pointOfDamage;
+
+        // Display attack information
         console.log(
           chalk.whiteBright(
             `\n${this.name} attacked ${opponent.name} with ${selectedAttack.attack} for ${pointOfDamage} damage💥\n`
           )
         );
       } else {
+        // Display a message if the entity doesn't have enough magic for the selected attack
         console.log(
           chalk.whiteBright(
             `\n${this.name} doesn't have enough magic to use ${selectedAttack.attack}.`
           )
         );
+
+        // Recharge the entity's magic with a random number between 1 and 20
         const getMagic = () => {
           const magicByRandomNumber = Math.floor(Math.random() * 20) + 1;
           this.magic += magicByRandomNumber;
           return magicByRandomNumber;
         };
+
+        // Display the amount of recharged magic
         const extraMagic = getMagic();
         console.log(
           chalk.whiteBright(
@@ -56,6 +67,7 @@ class Pokemon {
     }
   }
 
+  // Function to display the status
   showStatus() {
     return chalk.magentaBright(
       `🔹${this.name} - Health: ${this.health} / Magic: ${this.magic}`
@@ -108,7 +120,7 @@ const rayquaza = new Pokemon("Rayquaza", 100, 70, [
 // Available Pokémon Players
 const players = [mewtwo, charizard, dragonite, snorlax, rayquaza];
 
-// Select an attack
+// Function for a selected attack of the player
 const selectedAttackByPlayer = (player) => {
   console.log(chalk.whiteBright(`\n🔥Choose an attack for ${player.name}:`));
 
@@ -128,6 +140,7 @@ const selectedAttackByPlayer = (player) => {
   return player.attacks[attackIndex];
 };
 
+// Function for a random attack of the opponent
 const randomAttackByComputer = (opponent) => {
   const randomIndex = Math.floor(Math.random() * opponent.attacks.length);
   return opponent.attacks[randomIndex];
@@ -161,7 +174,7 @@ do {
     );
   }
 
-  // Select Pokémon Character
+  // Function for a selected character of the player
   const selectedCharacter = (players) => {
     console.log(chalk.whiteBright(`\n🔥Choose your character:`));
     const playerIndex = readline.keyInSelect(
@@ -174,10 +187,11 @@ do {
     return players[playerIndex];
   };
 
+  // Select a character for the player
   const player = selectedCharacter(players);
-  player.health = 100;
-
-  const opponent = pikachu;
+  player.health = 100; // Set the player's health to 100
+  
+  const opponent = pikachu; // Set the default opponent
 
   readline.question(
     chalk.bgWhiteBright.redBright.italic(
@@ -189,11 +203,11 @@ do {
     const playerAttack = selectedAttackByPlayer(player);
     const computerAttack = randomAttackByComputer(opponent);
 
-    player.attack(opponent, playerAttack);
-    opponent.attack(player, computerAttack);
+    player.attack(opponent, playerAttack); // Player attacks the opponent
+    opponent.attack(player, computerAttack); // Opponent randomly attacks the player by the computer
 
-    console.log(player.showStatus());
-    console.log(opponent.showStatus());
+    console.log(player.showStatus()); // Display player's status
+    console.log(opponent.showStatus()); // Display opponent's status
 
     if (!opponent.isAlive()) {
       console.log(chalk.bold.yellowBright(`You won!🔥🔥🔥`));
@@ -206,7 +220,7 @@ do {
 
   playAgain = readline.keyInYN(chalk.redBright("\nDo you want to play again?"));
   if (playAgain) {
-    opponent.health = 100;
+    opponent.health = 100; // Recharge opponent's health to 100 for the next battle
     console.log("Recharging you to 100 health💥");
     console.clear();
   } else {
