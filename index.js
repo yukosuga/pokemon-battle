@@ -42,7 +42,7 @@ class Pokemon {
           )
         );
         const getMagic = () => {
-          const magicByRandomNumber = Math.floor(Math.random() * 21);
+          const magicByRandomNumber = Math.floor(Math.random() * 20) + 1;
           this.magic += magicByRandomNumber;
           return magicByRandomNumber;
         };
